@@ -11,12 +11,12 @@ const OfferMongoProvider: Provider = {
 
 @Module({
   imports: [
-    MongooseModule.forRootAsync({
-      useClass: MongooseConfigService,
-    }),
-    MongooseModule.forFeature([{ name: Offer.name, schema: OfferSchema }]),
+    // MongooseModule.forRootAsync({
+    //   useClass: MongooseConfigService,
+    // }),
+    // MongooseModule.forFeature([{ name: Offer.name, schema: OfferSchema }]),
   ],
-  providers: [OfferMongoProvider],
-  exports: [OfferMongoProvider],
+  providers: [],
+  exports: [],
 })
 export class MongodbModule {}

@@ -1,10 +1,17 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { IOffer } from 'src/domain/offer/entities/offer.entity';
-import { IVacancy } from 'src/domain/offer/entities/vacancy.entity';
+import {
+  ICommercialOffer,
+  IOffer,
+} from 'src/domain/offer/entities/offer.entity';
+import {
+  IVacancy,
+  IVehicleVacancy,
+} from 'src/domain/offer/entities/vacancy.entity';
 import { Audit } from './audit.schema';
 import { Company } from './company.schema';
 import { IFeature } from 'src/domain/vehicle/feature.entity';
+import { IVehicleType } from 'src/domain/vehicle/vehicleType.entity';
 
 class PublicationDate {
   @Prop({ required: true })
@@ -15,14 +22,16 @@ class PublicationDate {
 
 class Feature extends Audit implements IFeature {
   @Prop({ required: true })
-  type: string;
+  name: string;
   @Prop({ required: true })
-  value: string[];
+  value: string;
 }
 
-class Vehicle {
+class Vehicle implements IVehicleVacancy {
   @Prop({ required: true })
-  type: string;
+  type: IVehicleType['name'];
+  @Prop({ required: true })
+  icon: IVehicleType['icon'];
   @Prop({ required: true })
   features: Feature[];
 }
@@ -38,10 +47,20 @@ class Vacancy implements IVacancy {
   documentRequired: boolean;
   @Prop({ required: true })
   veichle: Vehicle;
+  @Prop({ required: true })
+  showTotal: boolean;
+}
+
+class CommercialOffer implements ICommercialOffer {
+  @Prop({ required: true })
+  value: number;
+  @Prop({ required: true })
+  isPrivate: boolean;
 }
 
 @Schema()
 export class Offer extends Audit implements IOffer {
+  city: string;
   @Prop({ required: true })
   title: string;
   @Prop({ required: true })
@@ -69,7 +88,9 @@ export class Offer extends Audit implements IOffer {
   @Prop({ required: true })
   privateCommercialOffer: boolean;
   @Prop({ required: true })
-  commercialOffer?: number;
+  commercialOffer: CommercialOffer;
+  @Prop({ required: true })
+  documentsTemplateIds: string[];
 }
 
 export type OfferDocument = Offer & Document;

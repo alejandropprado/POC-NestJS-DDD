@@ -1,21 +1,24 @@
 import { Module } from '@nestjs/common';
-import { offerRepositoryImp } from './repositories/offer.repository';
+import { OfferRepositoryImp } from './repositories/offer.repository';
 import { OfferController } from './controller/offer/offer.controller';
 import { IocModule } from './ioc/ioc.module';
-import { PersistenceModule } from './persistence/persistence.module';
+// import { PersistenceModule } from './persistence/persistence.module';
+import { ApplyController } from './controller/apply/apply.controller';
+import { ApplyRepositoryImp } from './repositories/apply.repository';
 
 @Module({
-  providers: [offerRepositoryImp],
-  exports: [offerRepositoryImp],
+  providers: [OfferRepositoryImp, ApplyRepositoryImp],
+  exports: [OfferRepositoryImp, ApplyRepositoryImp],
   imports: [
-    PersistenceModule,
+    // PersistenceModule,
     IocModule.register({
       modules: [InfrastructureModule],
       repositories: {
-        offerRepository: offerRepositoryImp,
+        offerRepository: OfferRepositoryImp,
+        applyRepository: ApplyRepositoryImp,
       },
     }),
   ],
-  controllers: [OfferController],
+  controllers: [OfferController, ApplyController],
 })
 export class InfrastructureModule {}

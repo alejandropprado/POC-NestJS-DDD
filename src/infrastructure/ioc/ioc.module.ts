@@ -2,7 +2,6 @@ import { Module, Type, DynamicModule, Provider } from '@nestjs/common';
 import { CreateOfferUseCase } from 'src/application/use-cases/offer/create-offer.use-case';
 import { IOfferRepository } from 'src/domain/offer/interfaces/offer.repository';
 import { OfferService } from 'src/domain/offer/services/offer.service';
-import { DomainModule } from './domain/domain.module';
 import { ApplyService } from 'src/domain/apply/services/apply.service';
 import { IApplyRepository } from 'src/domain/apply/interfaces/apply.repository';
 import { CreateApplyUseCase } from 'src/application/use-cases/apply/create-apply.use-case';
@@ -11,15 +10,16 @@ export type IOCModuleOptions = {
   modules: Type[];
   repositories: {
     offerRepository: Type<IOfferRepository>;
+    applyRepository: Type<IApplyRepository>;
   };
 };
 
 @Module({
-  imports: [DomainModule],
+  imports: [],
 })
 export class IocModule {
   static register({ modules, repositories }: IOCModuleOptions): DynamicModule {
-    const { offerRepository } = repositories;
+    const { offerRepository, applyRepository } = repositories;
 
     // Registro de servicios
     const offerServiceProvider: Provider = {
@@ -34,7 +34,7 @@ export class IocModule {
       useFactory: (applyRepository: IApplyRepository) => {
         return new ApplyService(applyRepository);
       },
-      inject: [offerRepository],
+      inject: [applyRepository],
     };
 
     // Registro de casos de uso

@@ -2,6 +2,11 @@ import { IAudit } from 'src/domain/audit/audit.entity';
 import { IVacancy } from './vacancy.entity';
 import { ICompany } from 'src/domain/company/company.entity';
 
+export interface ICommercialOffer {
+  value: number;
+  isPrivate: boolean;
+}
+
 export interface IOffer extends IAudit {
   id?: string;
   title: string;
@@ -19,9 +24,6 @@ export interface IOffer extends IAudit {
   documentsTemplateIds: string[];
   company: ICompany;
   codeOffer: string;
-  commercialOffer: {
-    value: number;
-    isPrivate: boolean;
-  };
+  commercialOffer: ICommercialOffer;
   city: string;
 }

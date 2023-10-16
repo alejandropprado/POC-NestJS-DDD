@@ -15,5 +15,8 @@ export class CreateOfferRequestDTO implements Partial<IOffer> {
   company: ICompany;
   codeOffer: string;
   privateCommercialOffer: boolean;
-  commercialOffer?: number;
+  commercialOffer: {
+    value: number;
+    isPrivate: boolean;
+  };
 }
