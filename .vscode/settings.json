@@ -1,0 +1,5 @@
+{
+  "eslint.codeActionsOnSave.rules": null,
+"editor.formatOnSave": false,
+"typescript.format.enable": false
+}
