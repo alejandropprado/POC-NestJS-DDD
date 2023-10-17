@@ -1,5 +1,4 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CreateApplyUseCase } from 'src/application/use-cases/apply/create-apply.use-case';
 import { IApply } from 'src/domain/apply/entities/apply.entity';
 import { IApplyRepository } from 'src/domain/apply/interfaces/apply.repository';
 

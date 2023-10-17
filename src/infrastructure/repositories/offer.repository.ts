@@ -6,7 +6,7 @@ import { IOfferRepository } from 'src/domain/offer/interfaces/offer.repository';
 @Injectable()
 export class OfferRepositoryImp implements IOfferRepository {
   // constructor(
-  //   @Inject(OfferMongoRepository.name)
+  //   @Inject(oracl.name)
   //   private offerRepository: IOfferRepository,
   // ) {}
 
