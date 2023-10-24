@@ -9,4 +9,8 @@ export interface IDocument extends IAudit {
   };
   documentTypeId: string;
   status: string;
+  owner: {
+    type: string;
+    id: string;
+  };
 }
